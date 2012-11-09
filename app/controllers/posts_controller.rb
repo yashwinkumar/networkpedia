@@ -5,7 +5,7 @@ class PostsController < ApplicationController
     @posts = Post.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index_old.html.erb
       format.json { render json: @posts }
     end
   end
@@ -24,17 +24,24 @@ class PostsController < ApplicationController
   # GET /posts/new
   # GET /posts/new.json
   def new
-    @post = Post.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @post }
+    if user_signed_in?
+      @post = Post.new
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render json: @post }
+      end
+    else
+      redirect_to posts_url, notice: "Login to create new post"
     end
   end
 
   # GET /posts/1/edit
   def edit
+    if user_signed_in?
     @post = Post.find(params[:id])
+    else
+      redirect_to posts_url, notice: "Please sign in to edit"
+    end
   end
 
   # POST /posts
@@ -72,12 +79,16 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
+    if user_signed_in?
     @post = Post.find(params[:id])
     @post.destroy
 
     respond_to do |format|
       format.html { redirect_to posts_url }
       format.json { head :no_content }
+    end
+    else
+      redirect_to posts_url, notice: "You cannot delete the post"
     end
   end
 end

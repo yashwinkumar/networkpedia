@@ -1,0 +1,18 @@
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.h1{
+  text-align: center;
+  padding-top: 60px;
+  font-size: 13px;
+  color: #133c90;
+}
+#welcome_links{
+  text-align: center;
+  padding-top: 60px;
+  font-size: 18px;
+
+}
+#welcome_links a {text-decoration: none; }
+#welcome_links a:hover {background-color: #fff; color: #000000;}

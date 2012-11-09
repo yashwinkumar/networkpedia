@@ -1,33 +1,40 @@
-<h1>Listing posts</h1>
-
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+<div class="h1"> <h1>Listing posts</h1> </div>
+<div id="posts_table" align="center">
+<table class="post_table">
+  <tr align="center">
+    <th>POSTS</th>
+    <th>CONTENT</th>
+    <th>AUTHOR</th>
+    <th>ACTIONS</th>
   </tr>
 
-<% @posts.each do |post| %>
+  <% @posts.each do |post| %>
   <tr class="show_posts" >
     <td class="list_post_title">
       <dl>
-      <b><center><dt>Post Title</dt></center></b>
         <dd><%= truncate(post.title, length: 25) %></dd>
       </dl>
     </td>
     <td class="list_post_content">
       <dl>
-        <b><center><dt>Content</dt></center></b>
         <dd><%= truncate(post.content, length: 80) %></dd>
       </dl>
     </td>
-    <td><%= link_to 'Show', post %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td class="list_post_content">
+      <dl>
+        <dd><%= post.author %></dd>
+      </dl>
+    </td>
+    <td><%= link_to 'Show', post %>
+    <% if user_signed_in? %>
+    <%= link_to 'Edit', edit_post_path(post) %>
+    <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>
-
+</div>
 <br />
-
-<%= link_to 'New Post', new_post_path %>
+<% if user_signed_in? %>
+<span class="new_post" ><%= link_to 'New Post', new_post_path %></span>
+<% end %>

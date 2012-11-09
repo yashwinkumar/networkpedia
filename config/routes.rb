@@ -1,5 +1,11 @@
 Networkpedia::Application.routes.draw do
-  resources :posts
+
+  devise_for :users
+
+    resources :posts
+  root :to => "home#index"
+  #match '/users/sign_out' => 'devise/sessions#destroy'
+  #redirect :root_url
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -12,7 +18,7 @@ Networkpedia::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  # Sample resource route (maps HTTP verbs to controller No route matches [GET] "/users/sign_out"actions automatically):
   #   resources :products
 
   # Sample resource route with options:
@@ -22,12 +28,12 @@ Networkpedia::Application.routes.draw do
   #       post 'toggle'
   #     end
   #
-  #     collection do
+  #     collection do             No route matches [GET
   #       get 'sold'
   #     end
   #   end
 
-  # Sample resource route with sub-resources:
+  # Sample resource route with subNo route matches [GET-resources:
   #   resources :products do
   #     resources :comments, :sales
   #     resource :seller
@@ -49,7 +55,7 @@ Networkpedia::Application.routes.draw do
   #   end
 
   # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
+  # just remember to delete public/index_old.html.
   # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"

@@ -32,9 +32,36 @@
 }
 
 #login_links {
-  float: right;
-  padding: 20px;
   font: 20px "times new roman", serif ;
   }
 #login_links a { text-decoration: none; }
-#login_links a:hover {background-color: #ddda6b; color: #554012;}
+#login_links a:hover {background-color: #e4fafd; color: #0d3a8c;}
+
+#yield{
+  position: relative ;
+  min-height: 100%;
+  height: 500px;
+
+}
+
+.links{
+  text-decoration: none;
+  background-color: transparent;
+  color: #656565;
+}
+.links:hover{background-color: transparent; text-decoration: none;}
+#footer{
+  margin-top: 30px;
+  border-top: 2px solid #000;
+  /*position: relative;*/
+  clear: both;
+  padding: 2em 0;
+  bottom: 0;
+  height: 60px;
+  width: 1360px;
+  background-color: #0d3a8c;
+  font: 20px/15px "Times New Roman", serif;
+  color: #09c9fd;
+  padding-top: 25px;
+  text-align: center;
+}

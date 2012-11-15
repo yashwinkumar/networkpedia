@@ -3,30 +3,42 @@
 <head>
     <title>Networkpedia</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag "css/bootstrap", :media => "all" %>
+  <%= stylesheet_link_tag  "css/bootstrap-responsive", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "js/bootstrap" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 <div id="banner">
-  <%= link_to(image_tag("networking.jpg", :alt => "home image", :title => "Click here to return to Home"),root_path ) %>
+  <%= link_to(image_tag("networking.jpg", :alt => "home image", :title => "Click here to return to Home Page"),root_path ) %>
   <%=  link_to( @page_title || "NetworkPedia", root_path) %>
 </div>
 
-<% if flash %>
-  <p class= "notice"> <%= notice %> </p>
-<% end %>
-
 <div id="login_links">
   <% if user_signed_in? %>
-    Signed in as <%= current_user.email %>. Not you?
+    Welcome <%= current_user.email %><br/>
     <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
   <% else %>
     <%= link_to "Sign up", new_user_registration_path %> /
     <%= link_to "Sign in", new_user_session_path %>
   <% end %>
+
+
+  <% if flash[:notice] %>
+    <p class= "alert alert-success"> <%= notice %> </p>
+  <% end %>
+  <% if flash[:alert] %>
+    <p class="alert alert-block"><%= alert %></p>
+   <%end%>
 </div>
 
+<div id="yield">
 <%= yield %>
+</div>
 
+<div id="footer">
+  &copy 2012 Networkpedia.local.  All rights reserved
+</div>
 </body>
 </html>

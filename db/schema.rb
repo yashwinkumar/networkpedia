@@ -11,14 +11,37 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121108102941) do
+ActiveRecord::Schema.define(:version => 20121114101308) do
+
+  create_table "categories", :force => true do |t|
+    t.string "name",        :limit => 50, :default => "", :null => false
+    t.string "short_name",  :limit => 30, :default => "", :null => false
+    t.string "description", :limit => 30, :default => "", :null => false
+  end
+
+  create_table "categories_posts", :id => false, :force => true do |t|
+    t.integer  "category_id", :null => false
+    t.integer  "post_id",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "comments", :force => true do |t|
+    t.string   "name"
+    t.text     "text"
+    t.string   "email"
+    t.integer  "post_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "posts", :force => true do |t|
     t.string   "title"
     t.string   "content"
-    t.string   "author"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "author",     :default => "anonymous"
+    t.string   "user_id"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
   end
 
   create_table "users", :force => true do |t|

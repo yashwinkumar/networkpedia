@@ -15,6 +15,8 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
 
+
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }
@@ -37,10 +39,10 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-    if user_signed_in?
+    if user_signed_in?  && current_user.id == Post.find(params[:id]).user_id.to_i
     @post = Post.find(params[:id])
     else
-      redirect_to posts_url, notice: "Please sign in to edit"
+      redirect_to Post.find(params[:id]), alert: "Your are not authorized to edit this post"
     end
   end
 
@@ -48,9 +50,13 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
-
+    @post.user_id = current_user.id
+    checked_categories = params[:categories].collect{|cid| Category.find_by_id(cid.to_i)}
+    removed_categories = Category.all - checked_categories
     respond_to do |format|
       if @post.save
+        checked_categories.each{|cat| @post.categories << cat if !@post.categories.include?(cat)}
+        removed_categories.each{|cat| @post.categories.delete(cat) if @post.categories.include?(cat)}
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
       else
@@ -64,9 +70,13 @@ class PostsController < ApplicationController
   # PUT /posts/1.json
   def update
     @post = Post.find(params[:id])
+    checked_categories = params[:categories].collect{|cid| Category.find_by_id(cid.to_i)}
+    removed_categories = Category.all - checked_categories
 
     respond_to do |format|
       if @post.update_attributes(params[:post])
+        checked_categories.each{|cat| @post.categories << cat if !@post.categories.include?(cat)}
+        removed_categories.each{|cat| @post.categories.delete(cat) if @post.categories.include?(cat)}
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :no_content }
       else
@@ -79,16 +89,17 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    if user_signed_in?
     @post = Post.find(params[:id])
-    @post.destroy
-
-    respond_to do |format|
+    if user_signed_in?
+      @post.destroy
+      @post.comments.destroy
+      flash[:notice] = "Post Deleted"
+      respond_to do |format|
       format.html { redirect_to posts_url }
       format.json { head :no_content }
     end
     else
-      redirect_to posts_url, notice: "You cannot delete the post"
+      redirect_to @post, notice: "You cannot delete the post"
     end
   end
 end

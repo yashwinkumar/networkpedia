@@ -1,0 +1,33 @@
+<!--<p id="notice"><%= notice %></p>-->
+
+<table class="table table-hover" align = "center">
+  <tr>
+    <th>POST</th>
+    <th>CONTENT</th>
+    <th>AUTHOR</th>
+    <th>CREATED</th>
+    <th>COMMENTS</th>
+    <th>OWNER</th>
+    <th>ACTIONS</th>
+  </tr>
+
+ <% @category.posts.each do |cat|  %>
+    <tr>
+     <td><%= truncate(cat.title, length: 25) %></td>
+     <td><%= truncate(cat.content, length: 80)  %></td>
+     <td><%= cat.author unless cat.nil? %></td>
+     <td><%= distance_of_time_in_words_to_now cat.created_at unless cat.nil? %></td>
+     <td><%= cat.comments.size unless cat.nil? %></td>
+         <%  user = User.find(cat.user_id) %>
+     <td><%= user.email unless cat.nil? %></td>
+     <td><%= link_to 'Show', post_path(cat) , :class => 'label label-success' %>
+         <% if user_signed_in? && current_user.id == cat.user_id.to_i %>
+          <%= link_to 'Edit', edit_post_path(cat), :class => 'label label-warning' %>
+          <%= link_to 'Destroy', post_path(cat), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'label label-important' %>
+         <% end %></td>
+    </tr>
+ <% end %>
+
+ </table>
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>

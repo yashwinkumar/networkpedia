@@ -1,8 +1,13 @@
 Networkpedia::Application.routes.draw do
 
-  devise_for :users
+  resources :comments
+  #get "comments/create"
+  #
+  #get "comments/destroy"
 
-    resources :posts
+  devise_for :users
+  resources :categories
+  resources :posts
   root :to => "home#index"
   #match '/users/sign_out' => 'devise/sessions#destroy'
   #redirect :root_url

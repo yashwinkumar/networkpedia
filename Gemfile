@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.8'
 gem "thin", "~> 1.5.0"
 gem "devise", "~> 2.1.2"
+gem 'acts_as_commentable_with_threading'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

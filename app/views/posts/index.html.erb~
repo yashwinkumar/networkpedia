@@ -35,10 +35,7 @@
     </td>
     <td class="list_post_content">
       <dl>
-        <% post.categories.each do |cat| %>
-          <% cat.name unless cat.name.nil? %>
-        <dd><%= link_to "#{cat.name unless cat.name.nil?}",category_path(cat.id) , :class => 'links' %></dd>
-        <% end %>
+        <dd><%= post.categories.name.join(,) %></dd>
       </dl>
     </td>
     <td class="list_post_content">
@@ -52,10 +49,10 @@
       <dd><%= user.email %></dd>
     </dl>
   </td>
-    <td><%= link_to 'Show', post , :class => 'label label-success' %>
+    <td><%= link_to 'Show', post %>
       <% if user_signed_in? && current_user.id == post.user_id.to_i %>
-        <%= link_to 'Edit', edit_post_path(post), :class => 'label label-warning' %>
-        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'label label-important' %></td>
+        <%= link_to 'Edit', edit_post_path(post) %>
+        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <% end %>
   </tr>
 <% end %>

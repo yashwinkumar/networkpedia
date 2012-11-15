@@ -6,11 +6,14 @@
   text-align: center;
   border-collapse: collapse;
   border: 2px solid #667b6b;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
 }
+//#posts_table td{   border: 1px solid #c4efd2; }
 #posts_table th{
   background-color: #a1c7b6;
   text-align: center;
-  border:  1px solid #a8cfb8;
+  border-right:  2px solid #86a897;
 }
 #posts_table tr{
   font-size: 15px;
@@ -18,7 +21,26 @@
   background-color: #cefdec;
   text-align: center;
   border:  1px solid #a8cfb8;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
 }
-.new_post{
-  padding-left: 220px;
+
+#show_posts{
+position: absolute;
 }
+#show_posts .title{
+  font: 22px solid ;
+}
+#show_posts .title a {text-decoration: none;  color: #020676;}
+#show_posts .title a:hover{ background-color: #ffffff;color: #09c9fd;}
+#show_posts .description{
+  font-size: 15px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+#comments{}

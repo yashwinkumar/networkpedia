@@ -1,16 +1,33 @@
-<p id="notice"><%= notice %></p>
+<div id="show_posts">
+<p class="title">
+ <%=link_to( @post.title, @post_id) %>
+</p>
+<p class="description">
+  <%= @post.content %>
+</p>
+<p class="author">
+   <%= @post.author %>
+</p>
 
-<p>
-  <b>Post Title: </b>
-<%= @post.title %>
-</p>
-<p>
-  <b>Content: </b>
-<%= @post.content %>
-</p>
-<p>
-  <b>Author: </b>
-  <%= @post.author %>
-</p>
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<div id="comments">
+  <h3>COMMENTS</h3>
+<% @post.comments.each do |comment| %>
+  <p><b><%= comment.name %></b> : <%= comment.text %></p>
+    <% if user_signed_in? && current_user.id == @post.user_id.to_i %>
+<p><%= link_to "Delete Comment", comment, :method => :delete, :confirm => "Are you sure?" %></p>
+    <% end %>
+    <p>added <%= time_ago_in_words comment.created_at %> ago</p>
+  <% end %>
+
+  <%= form_for @post.comments.build do |f| %>
+  <%= hidden_field_tag :post_id, @post.id %>
+  <p><%= f.label "Name" %></p>
+  <p><%= f.text_field :name %></p>
+  <p><%= f.label "Comment:" %></p>
+  <p><%= f.text_area :text, :size => '43x10' %></p>
+  <p><%= f.submit "Post Comment" %></p>
+  <% end %>
+</div>
+<%= link_to 'Edit', edit_post_path(@post) %>
 <%= link_to 'Back', posts_path %>
+</div>

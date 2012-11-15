@@ -7,6 +7,7 @@ gem 'acts_as_commentable_with_threading'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem "pg"
 gem 'sqlite3'
 
 
